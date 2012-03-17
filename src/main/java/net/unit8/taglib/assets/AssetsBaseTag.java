@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -19,14 +18,27 @@ public abstract class AssetsBaseTag extends BodyTagSupport {
 	private static final long serialVersionUID = 1L;
 	private static final String SRC_TAG_START = "<src>";
 	private static final String SRC_TAG_END = "</src>";
-	private static String assetPath;
+	protected static String assetsPath;
 
 	private String src;
 	private Boolean minify = false;
 	private String aggregatedName;
 
-	public void getAssetPath() {
+	public String getAssetsPath() {
+		if (assetsPath != null) return assetsPath;
+			assetsPath = (String)pageContext.findAttribute("net.unit8.taglib.assets.AssetsPath");
+		if (assetsPath == null) {
+			assetsPath = pageContext.getServletContext().getRealPath("/");
+		}
+		return assetsPath;
+	}
 
+	public String getSrc() {
+		return src;
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
 	}
 
 	public void setMinify(Boolean minify) {
@@ -44,10 +56,6 @@ public abstract class AssetsBaseTag extends BodyTagSupport {
 	}
 
 	protected File findResource(String path) {
-		String assetsPath = (String)pageContext.findAttribute("net.unit8.taglib.assets.AssetsPath");
-		if (assetsPath == null) {
-			assetsPath = pageContext.getServletContext().getRealPath("/");
-		}
 		File directory = new File(FilenameUtils.getPath(path));
 		String basename = FilenameUtils.getBaseName(path);
 		FileFilter filter = new RegexFileFilter("^" + basename + "\\-[\\d\\.]+\\.js$");
@@ -69,10 +77,8 @@ public abstract class AssetsBaseTag extends BodyTagSupport {
 	protected void aggregate() {
 
 	}
-	@Override
-	public int doAfterBody() throws JspException {
-		BodyContent content = getBodyContent();
-		String body = content.getString();
+
+	private List<String> getResources(String body) throws JspException {
 		List<String> resources;
 		if (StringUtils.isEmpty(body)) {
 			resources = new ArrayList<String>();
@@ -87,16 +93,24 @@ public abstract class AssetsBaseTag extends BodyTagSupport {
 			 if (!StringUtils.isEmpty(src))
 				 resources.add(src);
 		}
-		String contextPath = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+		return resources;
+	}
+
+	@Override
+	public int doAfterBody() throws JspException {
+		BodyContent content = getBodyContent();
+		String body = content.getString();
+		List<String> resources = getResources(body);
 
 		try {
-			if (minify) {
+			if (StringUtils.isEmpty(aggregatedName)) {
 				for(String resource : resources) {
 					File file = findResource(resource);
+					writeTag(file == null ? resource : FilenameUtils.getPath(resource) + "/" + file.getName());
 				}
 			} else {
 				for(String resource : resources) {
-					writeTag(assetPath + "/" + resource);
+					File file = findResource(resource);
 				}
 			}
 

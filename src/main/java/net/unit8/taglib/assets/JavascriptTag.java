@@ -10,7 +10,8 @@ public class JavascriptTag extends AssetsBaseTag {
 	@Override
 	protected void writeTag(String path) throws IOException {
 		JspWriter writer = bodyContent.getEnclosingWriter();
-		writer.print("<script type=\"text/javascript\" src=\"" + path + "\"></script>");
+		writer.print("<script type=\"text/javascript\" src=\""
+				+ getAssetsPath() + path + "\"></script>");
 	}
 
 }

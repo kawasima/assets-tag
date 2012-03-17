@@ -34,12 +34,13 @@ public class VersionSelector {
 			return true;
 		}
 		String[] versionAs = versionA.split("\\.");
-		String[] versionBs = versionA.split("\\.");
+		String[] versionBs = versionB.split("\\.");
 
 		try {
 			for(int i=0; i<versionAs.length && i < versionBs.length; i++) {
-				if (Integer.parseInt(versionAs[i]) < Integer.parseInt(versionBs[i])) {
-					return true;
+				int delta = Integer.parseInt(versionAs[i]) - Integer.parseInt(versionBs[i]);
+				if (Math.abs(delta) > 0){
+					return delta < 0;
 				}
 			}
 			return versionAs.length <= versionBs.length;

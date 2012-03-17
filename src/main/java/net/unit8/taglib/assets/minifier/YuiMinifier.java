@@ -1,6 +1,5 @@
 package net.unit8.taglib.assets.minifier;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
