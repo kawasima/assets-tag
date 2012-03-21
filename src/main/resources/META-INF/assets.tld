@@ -8,10 +8,8 @@
 	<tlib-version>1.0</tlib-version>
 	<description>Assets-tag is a tag library for versioning, minifing and aggregating asset files (javascript and stylesheet).</description>
 	<display-name>Assets-tag</display-name>
-	<shot-name>assets</shot-name>
 
 	<uri>http://unit8.net/taglib/assets</uri>
-
 	<tag>
 		<description></description>
 		<display-name>assets-javascript</display-name>
