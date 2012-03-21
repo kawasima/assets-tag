@@ -9,14 +9,32 @@ Versioning
 Because fucking IE9 caches asset files more than necessary, when we updated asset files, IE9 .
 So we have to append the version number to each asset files, and when we update asset files we have to change the version number in file name.
 
-  foo-1.0.js  -> foo-1.1.js
+    foo-1.0.js  -> foo-1.1.js
 
 Each and every time, we rewrite all JSP files including the asset file. How terrible it is!
 Using assets-tag, this work will be simple.
 
-  <assets:javascript src="foo.js">  ->  <script type="text/javascript" src="foo-1.0.js"></script>
+    <assets:javascript src="foo.js"/>  ->  <script type="text/javascript" src="foo-1.0.js"></script>
 
 Minifing
 --------
 
-Assets-tag can minify the asset file when the option "minify" is true.
+Assets-tag can minify the asset file when the option "minify" is true. (Not implemented yet)
+
+Aggregating
+-----------
+
+Assets-tag can aggregate the asset files to reduce the number of transfers. (Not implemented yet)
+
+Convert
+
+    <assets:javascript aggregateName="app.js">
+      <src>/js/a.js</src>
+      <src>/js/b.js</src>
+    </assets>
+
+to
+
+    <script src="/js/app.js"/> // a.js + b.js -> app.js
+
+
