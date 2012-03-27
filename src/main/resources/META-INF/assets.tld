@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<taglib xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xml="http://www.w3.org/XML/1998/namespace"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_0.xsd"
-        version="2.0">
-
-	<tlib-version>1.0</tlib-version>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
 	<description>Assets-tag is a tag library for versioning, minifing and aggregating asset files (javascript and stylesheet).</description>
 	<display-name>Assets-tag</display-name>
 
+	<tlib-version>1.0</tlib-version>
+ 	<short-name>assets-tag</short-name>
 	<uri>http://unit8.net/taglib/assets</uri>
+
 	<tag>
 		<description></description>
 		<display-name>assets-javascript</display-name>
@@ -26,6 +25,17 @@
 		</attribute>
 		<attribute>
 			<name>aggregatedName</name>
+		</attribute>
+		<attribute>
+			<name>defer</name>
+			<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<name>async</name>
+			<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<name>charset</name>
 		</attribute>
 	</tag>
 
@@ -45,6 +55,9 @@
 		</attribute>
 		<attribute>
 			<name>aggregatedName</name>
+		</attribute>
+		<attribute>
+			<name>media</name>
 		</attribute>
 	</tag>
 
