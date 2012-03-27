@@ -28,7 +28,11 @@ public abstract class AssetsBaseTag extends BodyTagSupport {
 	public String getAssetsPrefix() {
 		if (assetsPrefix != null)
 			return assetsPrefix;
+
 		assetsPrefix = (String)pageContext.findAttribute("net.unit8.taglib.assets.AssetsPrefix");
+		if (assetsPrefix != null)
+			return assetsPrefix;
+
 		if (getAssetsPath().startsWith(pageContext.getServletContext().getRealPath("/"))) {
 			assetsPrefix = pageContext.getServletContext().getContextPath();
 		} else {
