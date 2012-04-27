@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.unit8.taglib</groupId>
 	<artifactId>assets-tag</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>assets-tag</name>
 
 	<properties>
